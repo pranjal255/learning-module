@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub - Mobile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .container {
+            padding: 15px;
+            max-width: 100%;
+        }
+        
+        .path-card {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .path-header {
+            padding: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .path-header.infrastructure {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+        }
+        
+        .path-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .path-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .modules {
+            padding: 0;
+        }
+        
+        .module {
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .module:hover {
+            background: #f8f9fa;
+        }
+        
+        .module:last-child {
+            border-bottom: none;
+        }
+        
+        .module-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .module-desc {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: #0056b3;
+        }
+        
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+        
+        .action-btn.secondary:hover {
+            background: #545b62;
+        }
+        
+        .tips {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tips h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .collapsible:after {
+            content: ' ▼';
+            font-size: 0.8em;
+            float: right;
+        }
+        
+        .collapsible.active:after {
+            content: ' ▲';
+        }
+        
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .content.active {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎓 Learning Hub</h1>
+        <p>Your Mobile Learning Companion</p>
+    </div>
+    
+    <div class="container">
+        <div class="quick-actions">
+            <h3>📱 Mobile Access Options</h3>
+            <a href="#github" class="action-btn">📚 Setup GitHub Access</a>
+            <a href="#offline" class="action-btn secondary">💾 Download for Offline</a>
+            <a href="#apps" class="action-btn secondary">📱 Recommended Apps</a>
+        </div>
+        
+        <div class="path-card">
+            <div class="path-header infrastructure">
+                <div class="path-title">🏗️ Infrastructure & SRE</div>
+                <div class="path-info">
+                    <span>⏱️ 6 months</span>
+                    <span>💰 $90K-$270K+</span>
+                </div>
+            </div>
+            <div class="modules">
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">01. Foundations</div>
+                    <div class="module-desc">Infrastructure basics, SRE fundamentals, Linux, Networking</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>What is Infrastructure</li>
+                            <li>SRE Fundamentals</li>
+                            <li>Linux Basics</li>
+                            <li>Networking Essentials</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">02. Containerization</div>
+                    <div class="module-desc">Docker fundamentals and container orchestration</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Docker Basics</li>
+                            <li>Container Best Practices</li>
+                            <li>Image Management</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">03. Orchestration</div>
+                    <div class="module-desc">Kubernetes fundamentals and cluster management</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Kubernetes Fundamentals</li>
+                            <li>Pod Management</li>
+                            <li>Services & Networking</li>
+                            <li>Storage & ConfigMaps</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">04. CI/CD</div>
+                    <div class="module-desc">Continuous Integration and Deployment pipelines</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Jenkins Basics</li>
+                            <li>Pipeline as Code</li>
+                            <li>Automated Testing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">05. Cloud Platforms</div>
+                    <div class="module-desc">AWS, GCP, and cloud-native services</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>AWS Fundamentals</li>
+                            <li>GCP Fundamentals</li>
+                            <li>Cloud Architecture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="path-card">
+            <div class="path-header">
+                <div class="path-title">💻 DSA & C++</div>
+                <div class="path-info">
+                    <span>⏱️ 4-6 months</span>
+                    <span>💰 $80K-$200K+</span>
+                </div>
+            </div>
+            <div class="modules">
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">01. Foundations</div>
+                    <div class="module-desc">C++ basics and complexity analysis</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>C++ Basics</li>
+                            <li>Complexity Analysis</li>
+                            <li>Memory Management</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">02. Linear Data Structures</div>
+                    <div class="module-desc">Arrays, strings, linked lists, stacks, queues</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Arrays</li>
+                            <li>Strings</li>
+                            <li>Linked Lists</li>
+                            <li>Stacks</li>
+                            <li>Queues</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">03. Tree Structures</div>
+                    <div class="module-desc">Binary trees, BST, heaps</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Binary Trees</li>
+                            <li>Binary Search Trees</li>
+                            <li>Heaps</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">04. Advanced Structures</div>
+                    <div class="module-desc">Hash tables and graphs</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Hash Tables</li>
+                            <li>Graphs</li>
+                            <li>Advanced Graph Algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module collapsible" onclick="toggleContent(this)">
+                    <div class="module-title">05. Algorithms</div>
+                    <div class="module-desc">Searching, sorting, DP, greedy, backtracking</div>
+                    <div class="content">
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Searching</li>
+                            <li>Sorting</li>
+                            <li>Recursion</li>
+                            <li>Dynamic Programming</li>
+                            <li>Greedy Algorithms</li>
+                            <li>Backtracking</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tips" id="github">
+            <h3>📚 GitHub Mobile Setup</h3>
+            <p><strong>Steps to access on mobile:</strong></p>
+            <ol style="margin-top: 10px; padding-left: 20px;">
+                <li>Create GitHub account (if you don't have one)</li>
+                <li>Install GitHub mobile app</li>
+                <li>Upload your learning files to a repository</li>
+                <li>Access anywhere with perfect markdown formatting</li>
+                <li>Track progress with commits</li>
+            </ol>
+        </div>
+        
+        <div class="tips" id="offline">
+            <h3>💾 Offline Access Options</h3>
+            <p><strong>Best mobile apps for markdown:</strong></p>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li><strong>iOS:</strong> MarkdownX, Pretext, Working Copy</li>
+                <li><strong>Android:</strong> Markor, MarkdownX, Epsilon Notes</li>
+                <li><strong>Cross-platform:</strong> Obsidian, Notion, Joplin</li>
+            </ul>
+        </div>
+        
+        <div class="tips" id="apps">
+            <h3>📱 Recommended Mobile Learning Setup</h3>
+            <p><strong>Essential apps:</strong></p>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li><strong>GitHub Mobile</strong> - Access your guides</li>
+                <li><strong>Termux</strong> (Android) / <strong>iSH</strong> (iOS) - Practice coding</li>
+                <li><strong>LeetCode Mobile</strong> - Practice problems</li>
+                <li><strong>Anki</strong> - Spaced repetition for concepts</li>
+                <li><strong>Forest</strong> - Focus timer for study sessions</li>
+            </ul>
+        </div>
+        
+        <div class="tips">
+            <h3>🎯 Mobile Learning Tips</h3>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>Use commute time for reading concepts</li>
+                <li>Practice coding problems during breaks</li>
+                <li>Set up offline access for uninterrupted learning</li>
+                <li>Use voice notes to capture insights</li>
+                <li>Join mobile-friendly communities (Discord, Telegram)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function toggleContent(element) {
+            element.classList.toggle('active');
+            var content = element.querySelector('.content');
+            content.classList.toggle('active');
+        }
+        
+        // Auto-expand first module of each path
+        document.addEventListener('DOMContentLoaded', function() {
+            var firstModules = document.querySelectorAll('.path-card .module:first-child');
+            firstModules.forEach(function(module) {
+                toggleContent(module);
+            });
+        });
+    </script>
+</body>
+</html>
