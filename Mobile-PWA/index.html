@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub PWA</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Complete DSA/C++ and Infrastructure/SRE Learning Hub">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Learning Hub">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/themes.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🎓</div>
+            <h2>Learning Hub</h2>
+            <div class="loading-spinner"></div>
+            <p>Loading your learning materials...</p>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app" class="app hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <button id="menu-btn" class="menu-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <h1 class="app-title">Learning Hub</h1>
+                
+                <div class="header-actions">
+                    <button id="search-btn" class="icon-btn" aria-label="Search">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+                    
+                    <button id="bookmark-btn" class="icon-btn" aria-label="Bookmarks">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"/>
+                        </svg>
+                    </button>
+                    
+                    <button id="settings-btn" class="icon-btn" aria-label="Settings">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div id="reading-progress" class="progress-bar"></div>
+            </div>
+        </header>
+
+        <!-- Search Overlay -->
+        <div id="search-overlay" class="search-overlay hidden">
+            <div class="search-container">
+                <div class="search-input-container">
+                    <input type="text" id="search-input" placeholder="Search across all content..." autocomplete="off">
+                    <button id="search-close" class="search-close">×</button>
+                </div>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <h2>Learning Paths</h2>
+                    <div class="overall-progress">
+                        <div class="progress-circle">
+                            <span id="overall-progress-text">0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="learning-paths">
+                    <!-- DSA & C++ Path -->
+                    <div class="path-section">
+                        <div class="path-header" data-path="dsa">
+                            <div class="path-info">
+                                <h3>💻 DSA & C++</h3>
+                                <span class="path-duration">4-6 months • $80K-$200K+</span>
+                            </div>
+                            <div class="path-progress">
+                                <span id="dsa-progress">0%</span>
+                            </div>
+                        </div>
+                        <div class="path-modules" id="dsa-modules"></div>
+                    </div>
+                    
+                    <!-- Infrastructure & SRE Path -->
+                    <div class="path-section">
+                        <div class="path-header" data-path="infrastructure">
+                            <div class="path-info">
+                                <h3>🏗️ Infrastructure & SRE</h3>
+                                <span class="path-duration">6 months • $90K-$270K+</span>
+                            </div>
+                            <div class="path-progress">
+                                <span id="infrastructure-progress">0%</span>
+                            </div>
+                        </div>
+                        <div class="path-modules" id="infrastructure-modules"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="welcome-screen">
+                <div class="welcome-content">
+                    <h1>🎓 Welcome to Your Learning Hub</h1>
+                    <p>Your complete guide to mastering DSA/C++ and Infrastructure/SRE</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-modules">60+</div>
+                            <div class="stat-label">Learning Modules</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="completed-modules">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="bookmarked-count">0</div>
+                            <div class="stat-label">Bookmarked</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="study-streak">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions-grid">
+                        <button class="action-card" onclick="showPath('dsa')">
+                            <div class="action-icon">💻</div>
+                            <h3>Start DSA & C++</h3>
+                            <p>Master data structures and algorithms</p>
+                        </button>
+                        
+                        <button class="action-card" onclick="showPath('infrastructure')">
+                            <div class="action-icon">🏗️</div>
+                            <h3>Start Infrastructure</h3>
+                            <p>Learn DevOps and system design</p>
+                        </button>
+                        
+                        <button class="action-card" onclick="showBookmarks()">
+                            <div class="action-icon">📚</div>
+                            <h3>My Bookmarks</h3>
+                            <p>Continue where you left off</p>
+                        </button>
+                        
+                        <button class="action-card" onclick="showSettings()">
+                            <div class="action-icon">⚙️</div>
+                            <h3>Customize</h3>
+                            <p>Adjust theme and font settings</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div id="content-area" class="content-area hidden">
+                <div class="content-header">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                    <div class="content-actions">
+                        <button id="bookmark-current" class="icon-btn" title="Bookmark this page">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"/>
+                            </svg>
+                        </button>
+                        <button id="mark-complete" class="icon-btn" title="Mark as complete">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <article id="content-body" class="content-body"></article>
+                
+                <div class="content-navigation">
+                    <button id="prev-btn" class="nav-btn prev-btn" disabled>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                        </svg>
+                        <span>Previous</span>
+                    </button>
+                    
+                    <button id="next-btn" class="nav-btn next-btn">
+                        <span>Next</span>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button id="settings-close" class="modal-close">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <h3>Appearance</h3>
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <select id="theme-select">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="sepia">Sepia</option>
+                                <option value="high-contrast">High Contrast</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Typography</h3>
+                        <div class="setting-item">
+                            <label>Font Size</label>
+                            <div class="font-size-controls">
+                                <button id="font-decrease">A-</button>
+                                <span id="font-size-display">Medium</span>
+                                <button id="font-increase">A+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>Font Family</label>
+                            <select id="font-family-select">
+                                <option value="inter">Inter (Default)</option>
+                                <option value="system">System</option>
+                                <option value="serif">Serif</option>
+                                <option value="mono">Monospace</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label>Line Spacing</label>
+                            <select id="line-spacing-select">
+                                <option value="compact">Compact</option>
+                                <option value="normal">Normal</option>
+                                <option value="relaxed">Relaxed</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Data</h3>
+                        <div class="setting-item">
+                            <button id="export-data" class="btn-secondary">Export Progress</button>
+                            <button id="import-data" class="btn-secondary">Import Progress</button>
+                        </div>
+                        <div class="setting-item">
+                            <button id="reset-progress" class="btn-danger">Reset All Progress</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookmarks Modal -->
+        <div id="bookmarks-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>My Bookmarks</h2>
+                    <button id="bookmarks-close" class="modal-close">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="bookmarks-list" class="bookmarks-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
